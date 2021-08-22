@@ -1,0 +1,25 @@
+.bg {
+    width: 100vw;
+    height: 100vh;
+    background: url(./img/bg.jpg);
+    background-size: cover;
+    position: relative;
+}
+
+.form-box {
+    position: absolute;
+    right: 100px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 360px;
+}
+
+.link-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
