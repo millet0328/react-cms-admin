@@ -1,0 +1,18 @@
+.node {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+}
+
+.actions {
+    font-size: 13px;
+}
+
+.ant-tree-list-holder-inner .ant-tree-treenode {
+    width: 100%;
+}
+
+.ant-tree .ant-tree-node-content-wrapper {
+    flex: 1;
+}
