@@ -1,4 +1,4 @@
-import { Card, Table, Image, Button, Space, Popconfirm, message } from "antd";
+import { Card, Table, Image, Button, Space, } from "antd";
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 function List() {
@@ -38,22 +38,22 @@ function List() {
             title: '头像',
             dataIndex: 'avatar',
             key: 'avatar',
-            render: (photo) => ( <Image width={ 60 } src={ photo }/> )
+            render: (photo) => (<Image width={60} src={photo} />)
         },
         {
             title: '操作',
             key: 'action',
             render: (text, record, index) => (
                 <Space>
-                    <Button type="primary" icon={ <EditOutlined/> } size="middle" ghost>编辑</Button>
-                    <Button icon={ <DeleteOutlined/> } danger size="middle">删除</Button>
+                    <Button type="primary" icon={<EditOutlined />} ghost>编辑</Button>
+                    <Button icon={<DeleteOutlined />} danger >删除</Button>
                 </Space>
             )
         },
     ];
     return (
         <Card title="管理员列表">
-            <Table rowKey='id' columns={ columns }/>;
+            <Table rowKey='id' columns={columns} />;
         </Card>
     )
 }

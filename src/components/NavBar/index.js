@@ -1,6 +1,7 @@
-import { Row, Col, Menu } from 'antd';
+import { Row, Col, Menu, Space } from 'antd';
 import { MenuFoldOutlined } from '@ant-design/icons';
 import logo from './img/logo.png';
+import Avatar from "antd/es/avatar/avatar";
 
 const { SubMenu } = Menu;
 
@@ -25,7 +26,12 @@ function NavBar() {
                     <Menu.Item key="setting">
                         网站配置
                     </Menu.Item>
-                    <SubMenu key="SubMenu" title="admin">
+                    <SubMenu key="SubMenu" title={
+                        <Space align="center">
+                            <Avatar src="https://joeschmoe.io/api/v1/random"/>
+                            <span className="fullname">黄小米</span>
+                        </Space>
+                    }>
                         <Menu.Item key="account">账户设置</Menu.Item>
                         <Menu.Item key="message">消息通知</Menu.Item>
                         <Menu.Item key="logout">退出登录</Menu.Item>

@@ -1,19 +1,13 @@
 import React from "react";
 import { Layout } from 'antd';
-import NavBar from "../NavBar";
-import SideMenu from "../SideMenu";
+import { Outlet } from 'react-router-dom';
 
-import { Route, Switch } from "react-router-dom";
-//导入模块
-import Article from "../../pages/Article";
-import User from "../../pages/User";
-import Admin from "../../pages/Admin";
-import Category from "../../pages/Category";
-import Auth from "../../pages/Auth";
+import NavBar from "../NavBar/";
+import SideMenu from "../SideMenu";
 
 const { Header, Sider, Content } = Layout;
 
-function Framework(props) {
+function Framework() {
     return (
         <Layout>
             <Header style={ { padding: '0 10px' } }>
@@ -24,23 +18,7 @@ function Framework(props) {
                     <SideMenu/>
                 </Sider>
                 <Content>
-                    <Switch>
-                        <Route path="/auth">
-                            <Auth/>
-                        </Route>
-                        <Route path="/category">
-                            <Category/>
-                        </Route>
-                        <Route path="/article">
-                            <Article/>
-                        </Route>
-                        <Route path="/user">
-                            <User/>
-                        </Route>
-                        <Route path="/admin">
-                            <Admin/>
-                        </Route>
-                    </Switch>
+                    <Outlet/>
                 </Content>
             </Layout>
         </Layout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a0c8b83b-da0c-47a8-b335-a4fcbff00634" name="变更" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/react-cms-admin--blank.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Framework/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Framework/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavBar/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavBar/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Admin/List/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Admin/List/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Admin/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Admin/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Article/Edit/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Article/Edit/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Article/List/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Article/List/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Article/Release/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Article/Release/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Article/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Article/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Auth/List/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Auth/List/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Auth/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Auth/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Category/List/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Category/List/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Category/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Category/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/User/Edit/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/User/Edit/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/User/List/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/User/List/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/User/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/User/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="20wv22cWZEcNJMWVCvcoYE2Fej9" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="a0c8b83b-da0c-47a8-b335-a4fcbff00634" name="变更" comment="" />
+      <created>1636968254736</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1636968254736</updated>
+      <workItem from="1636968258001" duration="1379000" />
+      <workItem from="1637831318522" duration="367000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>

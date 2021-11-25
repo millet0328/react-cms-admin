@@ -1,23 +1,18 @@
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import React from "react";
+import { Route, Routes } from 'react-router-dom';
 
+//导入页面级组件
 import List from "./List";
 import Edit from "./Edit";
-import Setting from './Setting';
+import Setting from './Setting/';
 
 function Admin() {
-    let match = useRouteMatch();
     return (
-        <Switch>
-            <Route path={ match.url + "/list" }>
-                <List/>
-            </Route>
-            <Route path={ match.url + "/edit/:id" }>
-                <Edit/>
-            </Route>
-            <Route path={ match.url + "/setting" }>
-                <Setting/>
-            </Route>
-        </Switch>
+        <Routes>
+            <Route path='list' element={ <List/> }/>
+            <Route path='edit/:id' element={ <Edit/> }/>
+            <Route path='setting' element={ <Setting/> }/>
+        </Routes>
     )
 }
 

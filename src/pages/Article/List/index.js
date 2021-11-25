@@ -24,7 +24,7 @@ function List() {
             title: '主图',
             dataIndex: 'main_photo',
             key: 'main_photo',
-            render: (photo) => (<Image width={ 60 } src={ photo }/>)
+            render: (photo) => (<Image width={60} src={photo} />)
         },
         {
             title: '标题',
@@ -48,15 +48,15 @@ function List() {
             key: 'action',
             render: (text, record, index) => (
                 <Space>
-                    <Button type="primary" icon={ <EditOutlined/> } size="middle">编辑</Button>
-                    <Button icon={ <DeleteOutlined/> } danger size="middle">删除</Button>
+                    <Button type="primary" icon={<EditOutlined />} >编辑</Button>
+                    <Button icon={<DeleteOutlined />} danger >删除</Button>
                 </Space>
             )
         },
     ];
     return (
         <Card title="文章列表">
-            <Table columns={ columns }/>;
+            <Table columns={columns} />;
         </Card>
     )
 }

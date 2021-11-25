@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Card, Table, Button, Space, Modal, message } from "antd";
+import React from "react";
+import { Card, Table, Button, Space } from "antd";
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
 
 function List() {
     let columns = [
