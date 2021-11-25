@@ -14,7 +14,7 @@ import { Provider } from 'react-redux';
 import store from "./store";
 
 ReactDOM.render(
-    <ConfigProvider locale={ config.zhCN }>
+    <ConfigProvider locale={ config.zhCN } componentSize="middle">
         <Provider store={ store }>
             <App/>
         </Provider>

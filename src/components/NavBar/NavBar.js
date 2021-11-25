@@ -2,26 +2,25 @@ import React, { useEffect } from "react";
 import { Row, Col, Menu, Avatar, Space } from 'antd';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import logo from './img/logo.png';
-import { useHistory } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const { SubMenu } = Menu;
 
 function NavBar({ isCollapsed, profile, onToggle, onLoadProfile }) {
-    //componentDidMount挂载
     useEffect(() => {
         // 提取当前登录账户的id
         let id = sessionStorage.id;
         onLoadProfile(id);
-    }, [])
+    }, [onLoadProfile])
 
-    //退出登录
-    let history = useHistory();
-
+    // 获取路由实例
+    let navigate = useNavigate();
+    // 退出登录
     function handleLogout() {
         // 清空缓存
         sessionStorage.clear();
         // 跳转登录
-        history.replace('/login');
+        navigate('/login', { replace: true });
     }
 
     return (
@@ -51,7 +50,9 @@ function NavBar({ isCollapsed, profile, onToggle, onLoadProfile }) {
                                      <span className="fullname">{ profile.fullname }</span>
                                  </Space>
                              }>
-                        <Menu.Item key="account">账户设置</Menu.Item>
+                        <Menu.Item key="account">
+                            <Link to="/admin/setting">账户设置</Link>
+                        </Menu.Item>
                         <Menu.Item key="message">消息通知</Menu.Item>
                         <Menu.Item onClick={ handleLogout } key="logout">退出登录</Menu.Item>
                     </SubMenu>

@@ -1,14 +1,25 @@
+import React, { useEffect } from "react";
 import { Card, Form, Input, Button, message } from 'antd';
-import { Link, useHistory, useLocation } from 'react-router-dom';
-import './index.css';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import styles from './index.module.css';
 import { Admin } from '../../api/';
 
 function Login() {
-    // 获取history实例
-    let history = useHistory();
-    // 获取location实例
-    let location = useLocation();
+    // 获取navigate实例
+    let navigate = useNavigate();
+    // 获取地址栏query参数
+    let [searchParams, setSearchParams] = useSearchParams();
 
+    useEffect(() => {
+        // 修改页面标题
+        document.title = "登录";
+        return () => {
+            // 默认title
+            document.title = "CMS管理系统";
+        }
+    });
+
+    // 登录
     const handleFinish = async (values) => {
         let { status, msg, data } = await Admin.login(values);
         if (status) {
@@ -18,11 +29,11 @@ function Login() {
             sessionStorage.role = data.role;
             sessionStorage.token = data.token;
             // 判断是否有重定向参数，跳转路由
-            let redirect = new URLSearchParams(location.search).get('redirect');
+            let redirect = searchParams.get('redirect');
             if (redirect) {
-                history.replace(redirect);
+                navigate(redirect, { replace: true });
             } else {
-                history.replace('/article/list');
+                navigate('/article/list', { replace: true });
             }
         } else {
             message.error(msg);
@@ -30,11 +41,11 @@ function Login() {
     };
 
     return (
-        <div className="bg">
+        <div className={ styles.bg }>
             <Card actions={ [<Link to="/register">注册账户</Link>, <Link to="/">忘记密码？</Link>,] } title="登录"
-                  className="form-box">
+                  className={ styles["form-box"] }>
                 <Form onFinish={ handleFinish } initialValues={ { username: "admin", password: 123 } }
-                      labelCol={ { span: 4 } } wrapperCol={ { span: 20 } }>
+                      labelCol={ { span: 4 } } wrapperCol={ { span: 20 } } autoComplete="off">
                     <Form.Item label="账户" name="username" rules={ [
                         { required: true, message: '请输入账户名称!' },
                         { min: 3, message: '账户名称至少3个字符!' }

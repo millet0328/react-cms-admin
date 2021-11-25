@@ -15,10 +15,11 @@ let remove = (data) => axios.post('/category/remove', data);
 // 编辑分类
 let edit = (data) => axios.post('/category/edit', data);
 
-export default {
-	subcate,
-	list,
-	insert,
-	remove,
-	edit,
+let Category = {
+    subcate,
+    list,
+    insert,
+    remove,
+    edit,
 }
+export default Category;

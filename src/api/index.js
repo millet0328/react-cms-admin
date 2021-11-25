@@ -1,11 +1,11 @@
-import Admin from './modules/admin';
-import Article from './modules/article';
-import User from './modules/user';
-import Role from './modules/role';
-import Upload from './modules/upload';
-import Category from './modules/category';
-import Menu from './modules/menu.js';
-import Tag from './modules/tag.js';
+import Admin from './modules/Admin';
+import Article from './modules/Article';
+import User from './modules/User';
+import Role from './modules/Role';
+import Upload from './modules/Upload';
+import Category from './modules/Category';
+import Menu from './modules/Menu';
+import Tag from './modules/Tag';
 
 export {
 	Admin,

@@ -7,14 +7,15 @@ let list = (params) => axios.get('/tag/list', { params });
 let insert = (data) => axios.post('/tag/', data);
 
 // 删除标签
-let remove = (id, params) => axios.delete(`/tag/${id}`, { params });
+let remove = (id, params) => axios.delete(`/tag/${ id }`, { params });
 
 // 编辑标签
-let edit = (id, data) => axios.put(`/tag/${id}`, data);
+let edit = (id, data) => axios.put(`/tag/${ id }`, data);
 
-export default {
-	list,
-	insert,
-	remove,
-	edit,
+let Tag = {
+    list,
+    insert,
+    remove,
+    edit,
 }
+export default Tag;

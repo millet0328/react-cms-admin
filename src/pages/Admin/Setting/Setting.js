@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Button, Card, Form, Input, Radio, message } from "antd";
-import { Admin } from '../../../api/index';
 import SingleUpload from "../../../components/SingleUpload";
 
 function Setting({ profile, onEdit }) {
@@ -9,7 +8,7 @@ function Setting({ profile, onEdit }) {
     //还原账户设置表单
     useEffect(() => {
         form.setFieldsValue(profile);
-    }, [profile]);
+    }, [form, profile]);
 
     //编辑资料
     async function handleEdit(values) {
@@ -67,11 +66,7 @@ function Setting({ profile, onEdit }) {
                     <Input/>
                 </Form.Item>
                 <Form.Item label="头像" name="avatar" rules={ [{ required: true, message: '请选择上传一张头像！' }] }>
-                    <SingleUpload
-                        action="/upload/common/"
-                        data={ { type: 'avatar' } }
-                        headers={ { Authorization: `Bearer ${ sessionStorage.token }` } }>
-                    </SingleUpload>
+                    <SingleUpload action="/upload/common/"/>
                 </Form.Item>
                 <Form.Item wrapperCol={ { offset: 2, span: 22 } }>
                     <Button type="primary" htmlType="submit">

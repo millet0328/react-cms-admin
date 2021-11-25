@@ -1,16 +1,41 @@
-import { Card, Form, Input, Button, Radio } from 'antd';
-import './index.css';
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Card, Form, Input, Button, Radio, message } from 'antd';
+import styles from './index.module.css';
+
+import { Link, useNavigate } from 'react-router-dom';
+import { Admin } from '../../api/';
 
 function Register() {
+    // 获取navigate实例
+    let navigate = useNavigate();
 
-    const handleFinish = (values) => {
-        console.log('Success:', values);
+    useEffect(() => {
+        // 修改页面标题
+        document.title = "注册";
+        return () => {
+            // 默认title
+            document.title = "CMS管理系统";
+        }
+    });
+
+    const handleFinish = async (values) => {
+        let { status, msg, data } = await Admin.register(values);
+        if (status) {
+            message.success(msg);
+            // 缓存数据
+            sessionStorage.id = data.id;
+            sessionStorage.role = data.role;
+            sessionStorage.token = data.token;
+            navigate('/article/list', { replace: true });
+        } else {
+            message.error(msg);
+        }
     };
 
     return (
-        <div className="bg">
-            <Card actions={ [<Link to="/login">登录账户</Link>, <Link to="/">忘记密码？</Link>,] } title="注册" className="form-box">
+        <div className={ styles.bg }>
+            <Card actions={ [<Link to="/login">登录账户</Link>, <Link to="/">忘记密码？</Link>,] } title="注册"
+                  className={ styles["form-box"] }>
                 <Form onFinish={ handleFinish } labelCol={ { span: 6 } } wrapperCol={ { span: 18 } }>
                     <Form.Item label="账户" name="username" rules={ [
                         { required: true, message: '请输入账户名称!' },
@@ -53,7 +78,10 @@ function Register() {
                     </Form.Item>
                     <Form.Item label="手机" name="tel" rules={ [
                         { required: true, message: '请输入手机号码!' },
-                        { pattern: /^1[3456789]d{9}$/, message: '请输入11位手机号码！' }
+                        {
+                            pattern: /^1(3\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\d|9[0-35-9])\d{8}$/,
+                            message: '请输入11位手机号码！'
+                        }
                     ] }>
                         <Input/>
                     </Form.Item>

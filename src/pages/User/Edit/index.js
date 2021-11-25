@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { useParams } from 'react-router-dom';
-import { Button, Card, Form, Input, Radio } from "antd";
+import { useParams, useNavigate } from 'react-router-dom';
+import { Button, Card, Form, Input, message, Radio } from "antd";
 import { User } from '../../../api/';
 
 function Edit() {
@@ -8,7 +8,8 @@ function Edit() {
     let { id } = useParams();
     //获取Form实例
     let [form] = Form.useForm();
-    // componentDidMount,componentDidUpdate,监听路由参数
+
+    // 监听路由参数
     useEffect(() => {
         //加载用户资料
         async function loadDetail() {
@@ -22,9 +23,24 @@ function Edit() {
         loadDetail();
     }, [id, form]);
 
+    // 获取路由
+    let navigate = useNavigate();
+    //编辑资料
+    const handleEdit = async (values) => {
+        let { status, msg } = await User.edit({ id, ...values });
+        if (status) {
+            // 消息提示
+            message.success(msg);
+            // 跳转路由
+            navigate(-1, { replace: true });
+        } else {
+            message.error(msg);
+        }
+    }
+
     return (
         <Card title="编辑用户">
-            <Form labelCol={ { span: 2 } } wrapperCol={ { span: 22 } } form={ form }>
+            <Form onFinish={ handleEdit } form={ form } labelCol={ { span: 2 } } wrapperCol={ { span: 22 } }>
                 <Form.Item label="用户名" name="username"
                            rules={ [
                                { required: true, message: '请输入用户名称！' },

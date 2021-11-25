@@ -7,9 +7,8 @@ let editor = null;
 * 为了配合antd框架的Form组件，需要提供两个属性：
 * value：组件的值
 * onChange：事件，向上传递数据
-* defaultValue：初始化默认值
 * */
-function Editor({ value, defaultValue, onChange }) {
+function Editor({ value, onChange }) {
     // componentDidMount：挂载
     useEffect(() => {
         editor = new Wangeditor("#editor");
@@ -32,7 +31,7 @@ function Editor({ value, defaultValue, onChange }) {
             // 组件销毁时销毁编辑器
             editor.destroy()
         }
-    }, []);
+    }, [onChange]);
     // componentDidUpdate：更新
     useEffect(() => {
         //编辑器无任何内容，初始化编辑器赋值

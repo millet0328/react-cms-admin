@@ -1,16 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Card, Tree, Space, Form, Input, Button, Modal, message } from "antd";
-import { Category } from '../../../api';
 import { EditOutlined, PlusCircleOutlined, DeleteOutlined } from '@ant-design/icons';
 import './index.css';
+import { Category } from '../../../api';
 
 function List() {
     //初始化数据
-    let initTreeData = [{ title: '全部分类', key: '0', id: 0 }];
+    let initTreeData = useMemo(() => {
+        return [{ title: '全部分类', key: '0', id: 0 }]
+    }, []);
     //扁平化结构
     let [originData, setOriginData] = useState([]);
     //树形结构
     let [treeData, setTreeData] = useState(initTreeData);
+
+    let convertTree_memoized = useCallback((list, orginData) => {
+        //递归生成树形结构
+        function convertTree(list, orginData) {
+            return list.map((parent) => {
+                let children = orginData.filter((child) => child.parent_id === parent.id);
+                if (children.length) {
+                    return { ...parent, children: convertTree(children, orginData) };
+                } else {
+                    return { ...parent }
+                }
+            });
+        }
+
+        return convertTree(list, orginData)
+    }, []);
     // 加载子节点数据
     useEffect(() => {
         async function loadData() {
@@ -23,25 +41,13 @@ function List() {
                 // 缓存原始数据
                 setOriginData(originData);
                 // 转换数据为树形结构
-                let treeData = convertTree(initTreeData, originData);
+                let treeData = convertTree_memoized(initTreeData, originData);
                 setTreeData(treeData);
             }
         }
 
         loadData();
-    }, []);
-
-    //递归生成树形结构
-    function convertTree(list, orginData) {
-        return list.map((parent) => {
-            let children = orginData.filter((child) => child.parent_id === parent.id);
-            if (children.length) {
-                return { ...parent, children: convertTree(children, orginData) };
-            } else {
-                return { ...parent }
-            }
-        });
-    }
+    }, [initTreeData, convertTree_memoized]);
 
     //渲染节点
     function handleTitleRender(nodeData) {
@@ -50,12 +56,12 @@ function List() {
                 <div className="name">{ nodeData.title }</div>
                 <div className="actions">
                     <Space>
-                        <Button onClick={ (e) => handleOpenEditModal(nodeData, e) } type="text"
-                                disabled={ nodeData.id === 0 } icon={ <EditOutlined/> }>编辑</Button>
-                        <Button onClick={ (e) => handleOpenInsertModal(nodeData, e) } type="text"
-                                icon={ <PlusCircleOutlined/> }>添加</Button>
-                        <Button onClick={ (e) => handleOpenRemoveModal(nodeData, e) } type="text"
-                                disabled={ nodeData.id === 0 } icon={ <DeleteOutlined/> } danger>删除</Button>
+                        <Button onClick={ (e) => handleOpenEditModal(nodeData, e) }
+                                disabled={ nodeData.id === 0 } icon={ <EditOutlined/> } type="link">编辑</Button>
+                        <Button onClick={ (e) => handleOpenInsertModal(nodeData, e) }
+                                icon={ <PlusCircleOutlined/> } type="link">添加</Button>
+                        <Button onClick={ (e) => handleOpenRemoveModal(nodeData, e) }
+                                disabled={ nodeData.id === 0 } icon={ <DeleteOutlined/> } type="link" danger>删除</Button>
                     </Space>
                 </div>
             </div>
@@ -78,7 +84,7 @@ function List() {
     }
 
     // 获取Form的实例
-    let [form] = Form.useForm();
+    let [addForm] = Form.useForm();
 
     //添加分类
     async function handleInsert(values) {
@@ -89,10 +95,10 @@ function List() {
             message.success(msg);
             //操作DOM
             originData.push({ ...data, ...values, parent_id: currentNode.id, key: data.id, title: values.name });
-            //转化为树形结构
-            let treeData = convertTree(initTreeData, originData);
-            setTreeData(treeData);
             setOriginData([...originData]);
+            //转化为树形结构
+            let treeData = convertTree_memoized(initTreeData, originData);
+            setTreeData([...treeData]);
             //关闭Modal
             setInsertVisible(false);
         } else {
@@ -129,10 +135,10 @@ function List() {
             let nodeData = originData.find((item) => item.id === currentNode.id);
             nodeData.name = values.name;
             nodeData.title = values.name;
-            //转化为树形结构
-            let treeData = convertTree(initTreeData, originData);
-            setTreeData([...treeData]);
             setOriginData([...originData]);
+            //转化为树形结构
+            let treeData = convertTree_memoized(initTreeData, originData);
+            setTreeData([...treeData]);
             //关闭Modal
             setEditVisible(false);
         } else {
@@ -164,10 +170,10 @@ function List() {
             //操作DOM
             let index = originData.findIndex((item) => item.id === currentNode.id);
             originData.splice(index, 1);
-            //转化为树形结构
-            let treeData = convertTree(initTreeData, originData);
-            setTreeData([...treeData]);
             setOriginData([...originData]);
+            //转化为树形结构
+            let treeData = convertTree_memoized(initTreeData, originData);
+            setTreeData([...treeData]);
             //关闭Modal
             setRemoveVisible(false);
         } else {
@@ -178,13 +184,13 @@ function List() {
 
     return (
         <Card title="分类列表">
-            <Tree titleRender={ handleTitleRender } treeData={ treeData } showLine={ true }/>
+            <Tree titleRender={ handleTitleRender } treeData={ treeData } showLine={ { showLeafIcon: false } }/>
             {/* 添加模态框 */ }
-            <Modal title="添加分类" visible={ insertVisible } onOk={ () => form.submit() } confirmLoading={ insertLoading }
+            <Modal title="添加分类" visible={ insertVisible } onOk={ () => addForm.submit() }
+                   confirmLoading={ insertLoading }
                    onCancel={ (e) => setInsertVisible(false) }>
-                <Form onFinish={ handleInsert } form={ form }>
-                    <Form.Item name="name" label="分类名称"
-                               rules={ [{ required: true, message: '请输入分类名称!' }] }>
+                <Form onFinish={ handleInsert } form={ addForm }>
+                    <Form.Item name="name" label="分类名称" rules={ [{ required: true, message: '请输入分类名称!' }] }>
                         <Input/>
                     </Form.Item>
                 </Form>
@@ -193,8 +199,7 @@ function List() {
             <Modal title="编辑分类" visible={ editVisible } onOk={ () => editForm.submit() } confirmLoading={ editLoading }
                    onCancel={ (e) => setEditVisible(false) }>
                 <Form onFinish={ handleEdit } form={ editForm }>
-                    <Form.Item name="name" label="分类名称"
-                               rules={ [{ required: true, message: '请输入分类名称!' }] }>
+                    <Form.Item name="name" label="分类名称" rules={ [{ required: true, message: '请输入分类名称!' }] }>
                         <Input/>
                     </Form.Item>
                 </Form>

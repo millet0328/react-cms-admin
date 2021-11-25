@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-
 import { Card, Table, Image, Button, Space, Popconfirm, message } from "antd";
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Admin } from '../../../api/index';
@@ -30,7 +29,6 @@ function List() {
             dataSource.splice(i, 1);
             setDataSource([...dataSource]);
         }
-
     }
 
     const columns = [
@@ -77,10 +75,10 @@ function List() {
             render: (text, record, index) => (
                 <Space>
                     <Link to={ `/admin/edit/${ record.id }` }>
-                        <Button type="primary" icon={ <EditOutlined/> } size="middle" ghost>编辑</Button>
+                        <Button type="primary" icon={ <EditOutlined/> } ghost>编辑</Button>
                     </Link>
                     <Popconfirm title="确定要删除此账户吗?" onConfirm={ (e) => handleRemove(index, record.id, e) }>
-                        <Button icon={ <DeleteOutlined/> } danger size="middle">删除</Button>
+                        <Button icon={ <DeleteOutlined/> } danger>删除</Button>
                     </Popconfirm>
                 </Space>
             )
@@ -88,7 +86,7 @@ function List() {
     ];
     return (
         <Card title="管理员列表">
-            <Table rowKey='id' dataSource={ dataSource } columns={ columns } size="middle"/>;
+            <Table rowKey='id' dataSource={ dataSource } columns={ columns } />
         </Card>
     )
 }

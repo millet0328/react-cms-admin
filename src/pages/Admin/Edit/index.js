@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Button, Card, Form, Input, Radio, message } from "antd";
-import { Admin } from '../../../api/index';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import SingleUpload from "../../../components/SingleUpload";
+import { Admin } from '../../../api/index';
 
 function Edit() {
     //获取路由参数
@@ -22,9 +22,19 @@ function Edit() {
         loadInfo();
     }, [id, form])
 
+    // 获取路由
+    let navigate = useNavigate();
     //编辑资料
-    function handleEdit(values) {
-        console.log(values)
+    const handleEdit = async (values) => {
+        let { status, msg } = await Admin.edit({ id, ...values });
+        if (status) {
+            // 消息提示
+            message.success(msg);
+            // 跳转路由
+            navigate(-1, { replace: true });
+        } else {
+            message.error(msg);
+        }
     }
 
     return (
@@ -69,11 +79,7 @@ function Edit() {
                     <Input/>
                 </Form.Item>
                 <Form.Item label="头像" name="avatar" rules={ [{ required: true, message: '请选择上传一张头像！' }] }>
-                    <SingleUpload
-                        action="/upload/common/"
-                        data={ { type: 'avatar' } }
-                        headers={ { Authorization: `Bearer ${ sessionStorage.token }` } }>
-                    </SingleUpload>
+                    <SingleUpload action="/upload/common/"/>
                 </Form.Item>
                 <Form.Item wrapperCol={ { offset: 2, span: 22 } }>
                     <Button type="primary" htmlType="submit">

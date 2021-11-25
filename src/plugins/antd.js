@@ -4,6 +4,8 @@ import 'moment/locale/zh-cn';
 
 moment.locale('zh-cn');
 
-export default {
-    zhCN,
-}
+let config = {
+    zhCN
+};
+
+export default config;

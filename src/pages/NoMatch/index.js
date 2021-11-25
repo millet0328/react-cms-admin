@@ -1,7 +1,16 @@
+import { useEffect } from "react";
 import { Result, Button } from 'antd';
 import { Link } from 'react-router-dom';
 
 function NoMatch() {
+    useEffect(() => {
+        // 修改页面标题
+        document.title = "404页面";
+        return () => {
+            // 默认title
+            document.title = "CMS管理系统";
+        }
+    });
     return (
         <Result
             status="404"

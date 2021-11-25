@@ -1,5 +1,7 @@
 import axios from "axios";
 import { notification } from 'antd';
+import { createHashHistory } from "history";
+
 //设置baseUrl
 axios.defaults.baseURL = 'http://localhost:3001';
 
@@ -24,19 +26,27 @@ axios.interceptors.response.use(function ({ data, status }) {
     }
 }, function ({ response }) {
     let { status } = response;
-
     // 处理响应错误
     switch (status) {
         case 401:
-            //错误提示框
+            // 生成history对象
+            const history = createHashHistory();
+            // 错误提示框
             notification.error({
                 message: `错误：${ status }`,
                 description: 'token过期，请重新登陆账户！',
+                onClose: (res) => {
+                    // 获取当前地址
+                    const current = history.location.pathname;
+                    // 此处与权限组件RequireAuth冲突，如果当前地址为/login，则无需跳转。
+                    if (current === '/login') {
+                        return;
+                    }
+                    //强制跳转路由
+                    document.location.hash = `/login?redirect=${ current }`;
+                }
             });
-            //获取当前地址
-            const current = document.location.hash.slice(1);
-            //强制跳转路由
-            document.location.hash = `/login?redirect=${current}`;
+
             break;
         case 404:
             //错误提示框

@@ -18,11 +18,16 @@ let edit = (data) => axios.post('/admin/info', data);
 // 删除
 let remove = (data) => axios.post('/admin/remove', data);
 
-export default {
-	login,
-	register,
-	list,
-	info,
-	edit,
-	remove,
+// 修改账户信息
+let account = (data) => axios.post('/admin/account', data);
+
+let Admin = {
+    login,
+    register,
+    list,
+    info,
+    edit,
+    remove,
+    account,
 }
+export default Admin;

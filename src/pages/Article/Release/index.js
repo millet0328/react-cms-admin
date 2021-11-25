@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Button, Card, Form, Input, Cascader, message } from "antd";
+import { useEffect, useState } from 'react';
+import { Button, Card, Cascader, Form, Input, message } from "antd";
 import { Article, Category } from '../../../api/';
 import SingleUpload from "../../../components/SingleUpload";
 import Editor from "../../../components/Editor";
@@ -13,40 +13,54 @@ function Release() {
     useEffect(() => {
         //获取一级分类
         async function loadCate_1st() {
-            let cate_1st = await loadOptions(0);
+            let cate_1st = await loadOptions(0, false);
             setOptions(cate_1st);
         }
 
         loadCate_1st();
     }, []);
 
-    //加载下一级分类
-    async function handleLoadSubcate(selectedOptions) {
-        const targetOption = selectedOptions[selectedOptions.length - 1];
+    // 最大分类层数
+    let MAX_LEVEL = 2;
+
+    // 加载下一级分类
+    const handleLoadSubcate = async (selectedOptions) => {
+        let { length } = selectedOptions;
+        // 根据selectedOptions判断当前是几级分类
+        let level = length + 1;
+        // 数组最后一项 即为 你最近选中的分类
+        const targetOption = selectedOptions[length - 1];
+        // 请求下一级分类
         targetOption.loading = true;
-        let children = await loadOptions(targetOption.id);
+        targetOption.children = await loadOptions(targetOption.id, level === MAX_LEVEL);
         targetOption.loading = false;
-        targetOption.children = children;
         setOptions([...options]);
     }
 
     //加载分类
-    async function loadOptions(id) {
+    const loadOptions = async (id, isLeaf) => {
         let { status, data } = await Category.subcate({ id });
         if (status) {
             //转换数据格式
             return data.map((item) => {
                 item.value = item.id;
                 item.label = item.name;
-                item.isLeaf = false;
+                item.isLeaf = isLeaf;
                 return item;
             });
         }
     }
 
     // 发布文章
-    function handleRelease(values) {
-        console.log(values);
+    const handleRelease = async (values) => {
+        values.cate_1st = values.category[0];
+        values.cate_2nd = values.category[1];
+        let { status, msg } = await Article.release(values);
+        if (status) {
+            message.success(msg);
+        } else {
+            message.error(msg);
+        }
     }
 
     return (
@@ -68,19 +82,14 @@ function Release() {
                 </Form.Item>
                 <Form.Item label="分类" name="category"
                            rules={ [{ required: true, message: '请选择文章分类！' }] }>
-                    <Cascader options={ options } loadData={ handleLoadSubcate }
-                              changeOnSelect/>
+                    <Cascader options={ options } loadData={ handleLoadSubcate } changeOnSelect/>
                 </Form.Item>
                 <Form.Item name="main_photo" label="主图"
                            rules={ [{ required: true, message: '请选择上传一张文章主图！' }] }>
-                    <SingleUpload
-                        action="/upload/common/"
-                        data={ { type: 'common' } }
-                        headers={ { Authorization: `Bearer ${ sessionStorage.token }` } }>
-                    </SingleUpload>
+                    <SingleUpload action="/upload/common/" data={ { type: 'common' } }/>
                 </Form.Item>
                 <Form.Item label="内容" name="content" rules={ [{ required: true, message: '请输入文章内容！' }] }>
-                    <Editor></Editor>
+                    <Editor/>
                 </Form.Item>
                 <Form.Item wrapperCol={ { offset: 2, span: 22 } }>
                     <Button type="primary" htmlType="submit">
